@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-
 import { CreateUserUseCase } from "../../application/CreateUserUseCase";
-//import { Product } from "../../domain/Product";
+//import { CreateUserUseCase } from "../../application/CreateUserUseCase";
+
 
 export class CreateUserController {
-  constructor(readonly createUserUseCase: CreateUserUseCase) {}
+  constructor(private readonly createUserUseCase: CreateUserUseCase) {}
+  //Cambiar 
 
   async run(req: Request, res: Response) {
     const data = req.body;
@@ -15,28 +16,22 @@ export class CreateUserController {
         data.password
       );
 
-      if (user)
-        //Code HTTP : 201 -> Creado
-        res.status(201).send({
+      if (user) {
+        res.status(201).json({
           status: "success",
-          data: {
-            id: user?.id,
-            username: user?.username,
-            email: user?.email,
-            password: user?.password,
-          },
+          data: user
         });
-      else
-        res.status(204).send({
+      } else {
+        res.status(400).json({
           status: "error",
-          data: "NO fue posible agregar el registro",
+          message: "No se pudo crear el usuario"
         });
+      }
     } catch (error) {
-      //Code HTTP : 204 Sin contenido
-      res.status(204).send({
+      console.error(error);
+      res.status(500).json({
         status: "error",
-        data: "Ocurrio un error",
-        msn: error,
+        message: "Ocurrió un error interno"
       });
     }
   }

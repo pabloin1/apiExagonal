@@ -8,4 +8,5 @@ export interface UserRepository {
     email: string,
     password: string
   ): Promise<User | null>;
+  deleteUser(userId: number): Promise<User | null>;
 }

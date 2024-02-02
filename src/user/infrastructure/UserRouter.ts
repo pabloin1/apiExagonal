@@ -1,20 +1,31 @@
 import express from "express";
+import { CreateUserController } from "./controllers/CreateUserController";
+import { GetAllUserController } from "./controllers/GetAllUserController";
+import { GetByIdUserController } from "./controllers/GetByIdUserController";
+import { createUserUseCase, getAllUseCase, getByIdUserUseCase, deleteUserUseCase } from "./dependencies";
+import { DeleteUserController } from "./controllers/DeleteUserController";
 
-import { createUserController } from "./dependencies";
-import { getAllUserController } from "./dependencies";
-import { getByIdUserController } from "./dependencies";
+
 
 export const userRouter = express.Router();
 
-userRouter.get(
-  "/",
-  getAllUserController.run.bind(getAllUserController)
-);
-userRouter.get(
-  "/:id",
-  getByIdUserController.run.bind(getByIdUserController)
-);
-userRouter.post(
-  "/",
-  createUserController.run.bind(createUserController)
-);
+const createUserController = new CreateUserController(createUserUseCase);
+const getAllUserController = new GetAllUserController(getAllUseCase);
+const getByIdUserController = new GetByIdUserController(getByIdUserUseCase);
+const deleteUserController = new DeleteUserController(deleteUserUseCase)
+
+userRouter.get("/", async (req, res) => {
+  await getAllUserController.run(req, res);
+});
+
+userRouter.get("/:id", async (req, res) => {
+  await getByIdUserController.run(req, res);
+});
+
+userRouter.post("/", async (req, res) => {
+  await createUserController.run(req, res);
+});
+
+userRouter.delete("/:id", async (req, res) => {
+  await deleteUserController.run(req, res);
+});

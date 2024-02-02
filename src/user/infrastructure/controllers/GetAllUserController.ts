@@ -1,38 +1,23 @@
 import { Request, Response } from "express";
-
 import { GetAllUserUseCase } from "../../application/GetAllUserUseCase";
 
 export class GetAllUserController {
-  constructor(readonly getAllUserUseCase: GetAllUserUseCase) {}
+  constructor(private readonly getAllUserUseCase: GetAllUserUseCase) {}
 
   async run(req: Request, res: Response) {
+    const id: number = parseInt(req.params.id);
     try {
       const users = await this.getAllUserUseCase.run();
-      console.log(users);
-      if (users)
-        //Code HTTP : 200 -> Consulta exitosa
-        res.status(200).send({
-          status: "success",
-          data: users.map((user: any) => {
-            return {
-              id: user.id,
-              username: user.username,
-              email: user.email,
-              password: user.password,
-            };
-          }),
-        });
-      else
-        res.status(400).send({
-          status: "error",
-          msn: "Ocurrio algún problema",
-        });
+      
+      res.status(200).json({
+        status: "success",
+        data: users
+      });
     } catch (error) {
-      //Code HTTP : 204 Sin contenido
-      res.status(204).send({
+      console.error(error);
+      res.status(500).json({
         status: "error",
-        data: "Ocurrio un error",
-        msn: error,
+        message: "Ocurrió un error interno"
       });
     }
   }

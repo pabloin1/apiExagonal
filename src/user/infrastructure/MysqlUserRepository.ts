@@ -45,12 +45,28 @@ export class MysqlUserRepository implements UserRepository {
     const sql =
       "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
     const params: any[] = [username, email, password];
+
+    
     try {
       const [result]: any = await query(sql, params);
       //El objeto Result es un objeto que contiene info generada de la bd
       /*No es necesaria la validación de la cantidad de filas afectadas, ya que, al
             estar dentro de un bloque try/catch si hay error se captura en el catch */
       return new User(result.insertId, username, email, password);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async deleteUser(userId: number): Promise<User | null> {
+    const sql = "DELETE FROM user WHERE id=?";
+    const params: any[] = [userId];
+    try {
+      const [result]: any = await query(sql, params);
+      //El objeto Result es un objeto que contiene info generada de la bd
+      /*No es necesaria la validación de la cantidad de filas afectadas, ya que, al
+            estar dentro de un bloque try/catch si hay error se captura en el catch */
+      return  new User(userId, result.email, result.password, result.username);
     } catch (error) {
       return null;
     }
