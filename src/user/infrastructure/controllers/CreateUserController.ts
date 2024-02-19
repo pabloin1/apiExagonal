@@ -6,7 +6,6 @@ import { CreateUserUseCase } from "../../application/CreateUserUseCase";
 export class CreateUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
   //Cambiar 
-
   async run(req: Request, res: Response) {
     const data = req.body;
     try {
