@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import { CreateUserUseCase } from "../../application/CreateUserUseCase";
-//import { CreateUserUseCase } from "../../application/CreateUserUseCase";
-
 
 export class CreateUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
@@ -12,7 +10,9 @@ export class CreateUserController {
       const user = await this.createUserUseCase.run(
         data.username,
         data.email,
-        data.password
+        data.password,
+        data.idHabitat,
+        data.idReport
       );
 
       if (user) {

@@ -4,6 +4,9 @@ import { GetAllUserController } from "./controllers/GetAllUserController";
 import { GetByIdUserController } from "./controllers/GetByIdUserController";
 import { createUserUseCase, getAllUseCase, getByIdUserUseCase, deleteUserUseCase } from "./dependencies";
 import { DeleteUserController } from "./controllers/DeleteUserController";
+import { EncryptionService } from "../application/services/cifradoUseCase";
+
+const encryptionService = new EncryptionService();
 
 
 

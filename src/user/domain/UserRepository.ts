@@ -6,7 +6,9 @@ export interface UserRepository {
   createUser(
     username: string,
     email: string,
-    password: string
+    password: string,
+    idHabitat:number,
+    idReport:number
   ): Promise<User | null>;
   deleteUser(userId: number): Promise<User | null>;
 }

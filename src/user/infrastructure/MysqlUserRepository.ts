@@ -11,7 +11,7 @@ export class MysqlUserRepository implements UserRepository {
 
       return dataUser.map(
         (user: any) =>
-          new User(user.id, user.username, user.email, user.password)
+          new User(user.id, user.username, user.email, user.password, user.idHabitat, user.idReport)
       );
     } catch (error) {
       return null;
@@ -30,7 +30,10 @@ export class MysqlUserRepository implements UserRepository {
         result[0].id,
         result[0].username,
         result[0].email,
-        result[0].password
+        result[0].password,
+        result[0].idHabitat,
+        result[0].idReport
+  
       );
     } catch (error) {
       return null;
@@ -40,11 +43,13 @@ export class MysqlUserRepository implements UserRepository {
   async createUser(
     username: string,
     email: string,
-    password: string
+    password: string,
+    idHabitat: number,
+    idReport:number
   ): Promise<User | null> {
     const sql =
-      "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
-    const params: any[] = [username, email, password];
+      "INSERT INTO user (username, email, password, idHabitat, idReport) VALUES (?, ?, ?,?,?)";
+    const params: any[] = [username, email, password,idHabitat,idReport];
 
     
     try {
@@ -52,7 +57,7 @@ export class MysqlUserRepository implements UserRepository {
       //El objeto Result es un objeto que contiene info generada de la bd
       /*No es necesaria la validación de la cantidad de filas afectadas, ya que, al
             estar dentro de un bloque try/catch si hay error se captura en el catch */
-      return new User(result.insertId, username, email, password);
+      return new User(result.insertId, username, email, password , idHabitat,idReport);
     } catch (error) {
       return null;
     }
@@ -66,7 +71,7 @@ export class MysqlUserRepository implements UserRepository {
       //El objeto Result es un objeto que contiene info generada de la bd
       /*No es necesaria la validación de la cantidad de filas afectadas, ya que, al
             estar dentro de un bloque try/catch si hay error se captura en el catch */
-      return  new User(userId, result.email, result.password, result.username);
+      return  new User(userId, result.email, result.password, result.username, result.idHabitat, result.idReport);
     } catch (error) {
       return null;
     }

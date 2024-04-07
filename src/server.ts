@@ -1,7 +1,6 @@
 import express from "express";
 import { Signale } from "signale";
 
-import { productRouter } from "./product/infrastructure/ProductRouter";
 import { userRouter } from "./user/infrastructure/UserRouter";
 
 const app = express();
@@ -11,7 +10,6 @@ app.disable("x-powered-by");
 const signale = new Signale();
 
 app.use(express.json());
-app.use("/products", productRouter);
 app.use("/users", userRouter);
 
 app.listen(3000, () => {

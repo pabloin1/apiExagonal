@@ -7,13 +7,13 @@ import { DeleteUserController } from "./controllers/DeleteUserController";
 import { GetAllUserController } from "./controllers/GetAllUserController";
 import { GetByIdUserController } from "./controllers/GetByIdUserController";
 
-
-
 import { MysqlUserRepository } from "./MysqlUserRepository";
 
+import { EncryptionService } from "../application/services/cifradoUseCase";
 
+export const encryptationService = new EncryptionService()
 export const mysqlUserRepository = new MysqlUserRepository();
-export const createUserUseCase = new CreateUserUseCase(mysqlUserRepository);
+export const createUserUseCase = new CreateUserUseCase(mysqlUserRepository , encryptationService);
 export const getAllUseCase = new GetAllUserUseCase(mysqlUserRepository);
 export const getByIdUserUseCase = new GetByIdUserUseCase(mysqlUserRepository);
 export const deleteUserUseCase = new DeleteUserUseCase(mysqlUserRepository);
