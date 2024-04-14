@@ -76,4 +76,27 @@ export class MysqlUserRepository implements UserRepository {
       return null;
     }
   }
+  async findByEmail(email: string): Promise<User | null> {
+    const sql = "SELECT * FROM user WHERE email=?";
+    const params: any[] = [email];
+    try {
+      const [result]: any = await query(sql, params);
+      if (result.length === 0) {
+        return null;
+      }
+      const userData = result[0];
+      return new User(
+        userData.id,
+        userData.username,
+        userData.email,
+        userData.password,
+        userData.idHabitat,
+        userData.idReport
+      );
+    } catch (error) {
+      console.error("Erro al buscar por email:", error);
+      return null;
+    }
+  }
 }
+

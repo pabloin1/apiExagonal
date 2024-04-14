@@ -3,16 +3,21 @@ import { CreateUserUseCase } from "../../application/CreateUserUseCase";
 
 export class CreateUserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}
-  //Cambiar 
+
   async run(req: Request, res: Response) {
     const data = req.body;
+
+    // Verificar si los campos opcionales están presentes
+    const idHabitat = data.idHabitat !== undefined ? data.idHabitat : null;
+    const idReport = data.idReport !== undefined ? data.idReport : null;
+
     try {
       const user = await this.createUserUseCase.run(
         data.username,
         data.email,
         data.password,
-        data.idHabitat,
-        data.idReport
+        idHabitat,
+        idReport
       );
 
       if (user) {
