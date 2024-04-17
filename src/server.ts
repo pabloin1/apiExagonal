@@ -14,6 +14,6 @@ const signale = new Signale();
 app.use(express.json());
 app.use("/users", userRouter);
 
-app.listen(3001, () => {
-  signale.success(`Server online in port 3001`);
+app.listen(3003, () => {
+  signale.success(`Server online in port 3003`);
 });
