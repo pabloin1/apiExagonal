@@ -1,6 +1,6 @@
 import express from "express";
 import { Signale } from "signale";
-const cors = require('cors');
+import cors from "cors";
 
 import { userRouter } from "./user/infrastructure/UserRouter";
 

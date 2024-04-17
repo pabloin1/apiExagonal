@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const signale_1 = require("signale");
-const cors = require('cors');
+const cors_1 = __importDefault(require("cors"));
 const UserRouter_1 = require("./user/infrastructure/UserRouter");
 const app = (0, express_1.default)();
-app.use(cors());
+app.use((0, cors_1.default)());
 app.disable("x-powered-by");
 const signale = new signale_1.Signale();
 app.use(express_1.default.json());
