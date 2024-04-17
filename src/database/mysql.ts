@@ -6,10 +6,10 @@ dotenv.config();
 const signale = new Signale();
 
 const config = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
+  host: "database-1.cd8ee2i0wc9v.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  database: "multidiciplinario",
+  password: "admin123",
   waitForConnections: true,
   connectionLimit: 10,
 };
